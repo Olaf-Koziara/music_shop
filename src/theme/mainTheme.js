@@ -22,4 +22,5 @@ export const mainTheme = {
     tablet: "1024px",
     laptop: "1400px",
   },
+  postions: {},
 };

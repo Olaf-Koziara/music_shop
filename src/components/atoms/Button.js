@@ -9,7 +9,9 @@ const Button = styled.button`
   padding: 7px 14px;
   background-color: ${({ theme }) => theme.yellowRed};
   transition: box-shadow 0.2s;
-
+  &:focus {
+    background-color: "black";
+  }
   font-size: ${({ bigFont }) => (bigFont ? "40px" : "20px")};
   ${({ cartIcon }) =>
     cartIcon &&

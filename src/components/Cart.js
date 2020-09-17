@@ -24,6 +24,7 @@ const useStyles = makeStyles((theme) => ({
     outline: "none",
     width: "30vw",
     height: "80vh",
+    fontFamily: "roboto",
   },
 }));
 
@@ -53,9 +54,12 @@ const Cart = () => {
               <CartItem {...product} />
             ))}
             {cartTotal > 0 ? (
-              <>
-                <h2>{Math.floor(cartTotal)}€</h2> <PayPalButton />
-              </>
+              <div style={{ display: "flex" }}>
+                <div style={{ fontSize: "25px" }}>Total:</div>
+                <div>
+                  <h2>{Math.floor(cartTotal)}€</h2> <PayPalButton />
+                </div>
+              </div>
             ) : (
               <h2>Empty</h2>
             )}

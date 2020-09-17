@@ -13,14 +13,36 @@ import GlobalStyle from "../theme/GlobalStyle";
 import CartItem from "../components/CartItem";
 import Product from "../components/Product";
 import { useEffect } from "react";
+import { client } from "../contentfulData/contentfulData";
 
 const Root = () => {
   const [products, setProducts] = useState([...productsArray]);
   //state for cart
   const [isCartOpen, setCartOpen] = useState(false);
-  const [search, setSearch] = useState("");
-  const [cart, setCart] = useState([]);
-  const [cartCounter, setCartCounter] = useState(0);
+
+  const getCartFromLocalStorage = () => {
+    let tempCart;
+    if (localStorage.getItem("cart")) {
+      tempCart = JSON.parse(localStorage.getItem("cart"));
+    } else {
+      tempCart = [];
+    }
+    return tempCart;
+  };
+
+  const [cart, setCart] = useState(getCartFromLocalStorage());
+  const getCartCounterFromLocalStorage = () => {
+    let tempCartCounter;
+    if (localStorage.getItem("cartCounter")) {
+      tempCartCounter = JSON.parse(localStorage.getItem("cartCounter"));
+    } else {
+      tempCartCounter = 0;
+    }
+    return tempCartCounter;
+  };
+  const [cartCounter, setCartCounter] = useState(
+    getCartCounterFromLocalStorage(),
+  );
   const [cartTotal, setCartTotal] = useState(0);
   //state for filters
   const [filteredProducts, setFilteredProducts] = useState(products);
@@ -28,15 +50,75 @@ const Root = () => {
   const [min, setMin] = useState(0);
   const [max, setMax] = useState(0);
   const [category, setCategory] = useState("all");
-  //for filters
+  const [pictures, setPictures] = useState([]);
+  const [search, setSearch] = useState("");
+  const [categories, setCategories] = useState([]);
+  // local storage
+  const setCartToLocalStorage = () => {
+    localStorage.setItem("cart", JSON.stringify(cart));
+  };
+  const setCartCounterToLocalStorage = () => {
+    localStorage.setItem("cartCounter", JSON.stringify(cartCounter));
+  };
+
+  //
+  const getContentfulData = () => {
+    client
+      .getEntries({ content_type: "productName" })
+      .then((response) => setContentfulData(response.items));
+  };
+  const setContentfulData = (data) => {
+    if (data.length !== 0) {
+      let contentfulProducts = data.map((item) => {
+        const productImage = item.fields.productImage.fields.file.url;
+        const productName = item.fields.productName;
+        const productDesc = item.fields.productDesc;
+        const productCategories = item.fields.productCategories;
+        const productQuantity = item.fields.productQuantity;
+        const productPrice = item.fields.productPrice;
+        const productDiscount = item.fields.productDiscount;
+        const discountPosition = item.fields.discountPosition;
+        const id = item.sys.id;
+        const product = {
+          id,
+          productImage,
+          productName,
+          productDesc,
+          productCategories,
+          productQuantity,
+          productPrice,
+          productDiscount,
+          discountPosition,
+        };
+        return product;
+      });
+      setProducts(contentfulProducts);
+      setProductsFilterPrices(contentfulProducts);
+      getCategories();
+    }
+  };
+  const getCategories = () => {
+    const tempCategories = [];
+    products.map((product) => {
+      if (!tempCategories.includes(product.productCategories)) {
+        tempCategories.push(product.productCategories);
+      }
+    });
+    setCategories(tempCategories);
+  };
   useEffect(() => {
-    setProductsData(products);
+    getContentfulData();
   }, []);
-  const setProductsData = (products) => {
+  //for filters
+  const clearFilters = () => {
+    setPrice(max);
+    setCategory("all");
+    setSearch("");
+  };
+  const setProductsFilterPrices = (products) => {
     let maxPrice = Math.max(...products.map((product) => product.productPrice));
     setMax(maxPrice);
     setPrice(maxPrice);
-    console.log(maxPrice);
   };
   const handlePriceInputChange = (e) => {
     setPrice(e.target.value);
@@ -71,6 +153,8 @@ const Root = () => {
   };
   useEffect(() => {
     calculateCartTotals();
+    setCartToLocalStorage();
+    setCartCounterToLocalStorage();
   }, [cart, cartCounter]);
   const increaseCartItemQuantity = (name) => {
     cart.find((p) => p.productName === name).productQuantity++;
@@ -99,11 +183,12 @@ const Root = () => {
   };
   const addProductToTheCart = (product) => {
     increaseCartCounter();
-    const productFromCartArray = cart.filter(
+    const productFromCart = cart.find(
       (p) => p.productName === product.productName,
     );
-    const productFromCart = productFromCartArray[0];
+
     if (!productFromCart) {
+      product.productQuantity = 1;
       setCart([{ ...product }, ...cart]);
     } else {
       const tmpProduct = { ...productFromCart };
@@ -123,8 +208,8 @@ const Root = () => {
     setCartCounter(cartCounter - quantity);
   };
   const clearCart = () => {
-    setCart([]);
     setCartCounter(0);
+    setCart([]);
   };
 
   return (
@@ -151,6 +236,8 @@ const Root = () => {
           setCategory,
           cartTotal,
           clearCart,
+          clearFilters,
+          categories,
         }}
       >
         <GlobalStyle />

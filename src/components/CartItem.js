@@ -30,7 +30,11 @@ const CartItem = (product) => {
     <StyledLi>
       <StyledImage isTiny src={productImage} alt={productName} />
       <h4>{productName}</h4>
-      <Button icon onClick={() => decreaseCartItemQuantity(productName)}>
+      <Button
+        icon
+        disabled={productQuantity < 2}
+        onClick={() => decreaseCartItemQuantity(productName)}
+      >
         <IndeterminateCheckBoxRoundedIcon />
       </Button>
       <StyledSpan rounded>

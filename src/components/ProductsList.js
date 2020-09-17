@@ -18,10 +18,10 @@ const ProductsList = () => {
     align-content: end;
     width: 90%;
     margin: auto;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
     grid-gap: 50px;
     list-style: none;
-    margin-top: 60px;
+    margin-top: 0px;
   `;
 
   return (
