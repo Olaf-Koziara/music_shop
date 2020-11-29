@@ -11,3 +11,8 @@
 }
 * > a:focus {
 }
+.contact-form {
+  width: auto;
+  margin: auto;
+  text-align: center;
+}
