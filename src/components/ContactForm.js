@@ -14,7 +14,22 @@ const contactFormSchema = Yup.object().shape({
   subject: Yup.string().required("Enter subject"),
   accept: Yup.bool().oneOf([true], "Accept terms"),
 });
+ const StyledField = styled(Field)`
+  line-height: 50px;
+  background-color: #fafafa;
 
+  box-shadow: inset 0px 1px 3px 0px rgba(0, 0, 0, 0.08);
+  margin-bottom: 5px;
+  border-radius: 5px;
+  padding: 0 20px;
+  font-size: 16px;
+  color: #666;
+  width: 260px;
+  margin-left: auto;
+  margin-right: auto;
+  display:block;
+  transition: all 0.4s ease;
+`;
 const ContactForm = () => {
   return (
     <Formik
@@ -30,8 +45,8 @@ const ContactForm = () => {
       validationSchema={contactFormSchema}
     >
       {(values) => (
-        <Form>
-          <Field
+        <Form className="contact-form">
+          <StyledField
             id="subject"
             name="subject"
             type="text"
@@ -41,7 +56,7 @@ const ContactForm = () => {
           <StyledError>
             <ErrorMessage name="subject" />
           </StyledError>
-          <Field
+          <StyledField
             id="email"
             name="email"
             type="email"
@@ -49,7 +64,7 @@ const ContactForm = () => {
             value={values.email}
           />
           <ErrorMessage name="email" />
-          <Field
+          <StyledField
             id="message"
             name="message"
             type="text"
@@ -58,7 +73,8 @@ const ContactForm = () => {
             component="textarea"
           />
           <ErrorMessage name="message" />
-          <Field
+          <label htmlFor="accept">Accept terms</label>
+          <StyledField
             id="accept"
             name="accept"
             type="checkbox"
