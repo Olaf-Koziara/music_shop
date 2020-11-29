@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
     outline: "none",
-    width: "30vw",
+    width: "50vw",
     height: "80vh",
     fontFamily: "roboto",
   },
