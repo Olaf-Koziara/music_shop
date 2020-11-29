@@ -9,10 +9,11 @@ import AddBoxIcon from "@material-ui/icons/AddBox";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 const StyledLi = styled.li`
   display: grid;
-  grid-template-columns: 20% 30% 10% 5% 5% 10% 5%;
+  grid-template-columns: 20% 30% 7% 2% 2% 7% 2%;
   border-bottom: 1px solid black;
   padding: 10px;
   grid-column-gap: 3%;
+  font-size:16px;
 `;
 const StyledSpan = styled.span`
   text-align: center;
