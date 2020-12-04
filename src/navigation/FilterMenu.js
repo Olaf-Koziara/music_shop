@@ -73,17 +73,6 @@ const FilterMenu = () => {
         width: "50%",
       }}
     >
-      <AnimatedButton
-        style={{ height: "61px", marginTop: "20px" }}
-        onClick={startReset}
-        icon
-      >
-        <img
-          style={{ width: "32px", transition: "0.4s ease-in-out" }}
-          src={resetIcon}
-          alt="reset"
-        />
-      </AnimatedButton>
       <div style={{ marginTop: "20px" }}>
         <Button
           style={{ borderRadius: "5px" }}
@@ -125,6 +114,18 @@ const FilterMenu = () => {
             : null}
         </StyledMenu>
       </div>
+      <AnimatedButton
+        style={{ height: "61px", marginTop: "20px" }}
+        onClick={startReset}
+        icon
+      >
+        <img
+          style={{ width: "32px", transition: "0.4s ease-in-out" }}
+          src={resetIcon}
+          alt="reset"
+        />
+      </AnimatedButton>
+
       <div style={{ marginTop: "10px" }}>
         <TextField
           id="standard-basic"
