@@ -12,7 +12,26 @@ const Button = styled.button`
   &:focus {
     background-color: "black";
   }
+
+  height: 40px;
+  margin: 0 30px 30px 0;
+  position: relative;
+
+  -webkit-transition: all 0.1s linear;
+  transition: all 0.1s linear;
   font-size: ${({ bigFont }) => (bigFont ? "40px" : "20px")};
+
+  &:after {
+    color: #e9e6e4;
+    content: "";
+    display: block;
+    font-size: 30px;
+    height: 30px;
+    text-decoration: none;
+    text-shadow: 0px -1px 1px #bdb5b4, 1px 1px 1px white;
+    position: absolute;
+    width: 30px;
+  }
   ${({ cartIcon }) =>
     cartIcon &&
     css`
