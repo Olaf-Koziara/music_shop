@@ -14,7 +14,7 @@ const Button = styled.button`
   }
 
   height: 40px;
-  margin: 0 30px 30px 0;
+
   position: relative;
 
   -webkit-transition: all 0.1s linear;
