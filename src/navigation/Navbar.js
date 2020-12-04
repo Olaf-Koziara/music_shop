@@ -129,6 +129,7 @@ const Navbar = () => {
       >
         <a>Enis</a>
       </StyledBurgerMenu>
+
       {isOpen ? (
         <StyledBurgerMenuContentWrapper>
           <StyledList>
@@ -155,6 +156,11 @@ const Navbar = () => {
               <Link onClick={closeBurgerMenu} style={fade} to="/contact">
                 Contact
               </Link>
+            </StyledListItem>
+            <StyledListItem>
+              <Button cartIcon={cartIcon} onClick={handleCartOpen}>
+                <StyledCartCounter>{cartCounter}</StyledCartCounter>
+              </Button>
             </StyledListItem>
           </StyledList>
         </StyledBurgerMenuContentWrapper>
