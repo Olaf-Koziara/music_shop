@@ -21,15 +21,21 @@ const contactFormSchema = Yup.object().shape({
   subject: Yup.string().required("Enter subject"),
   accept: Yup.bool().oneOf([true], "Accept terms"),
 });
-const StyledInput = styled(Field)`
-  border: 0;
-  box-shadow: 1px 1px 3px 0 black;
-  margin: 4px;
-  width: 300px;
-`;
-const StyledForm = styled(Form)`
-  width: 30%;
-  margin: auto;
+const StyledField = styled(Field)`
+  line-height: 50px;
+  background-color: #fafafa;
+
+  box-shadow: inset 0px 1px 3px 0px rgba(0, 0, 0, 0.08);
+  margin-bottom: 5px;
+  border-radius: 5px;
+  padding: 0 20px;
+  font-size: 16px;
+  color: #666;
+  width: 260px;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  transition: all 0.4s ease;
 `;
 const ContactForm = () => {
   const handleFormSubmit = (e, values) => {
@@ -59,8 +65,8 @@ const ContactForm = () => {
       validationSchema={contactFormSchema}
     >
       {(values) => (
-        <StyledForm onSubmit={(e) => handleFormSubmit(e, values)}>
-          <StyledInput
+        <Form className="contact-form">
+          <StyledField
             id="subject"
             name="subject"
             type="text"
@@ -70,17 +76,15 @@ const ContactForm = () => {
           <StyledError>
             <ErrorMessage name="subject" />
           </StyledError>
-          <StyledInput
+          <StyledField
             id="email"
             name="email"
             type="email"
             placeholder="email"
             value={values.email}
           />
-          <StyledError>
-            <ErrorMessage name="email" />
-          </StyledError>
-          <StyledInput
+          <ErrorMessage name="email" />
+          <StyledField
             id="message"
             name="message"
             type="text"
@@ -88,10 +92,9 @@ const ContactForm = () => {
             value={values.message}
             component="textarea"
           />
-          <StyledError>
-            <ErrorMessage name="message" />
-          </StyledError>
-          <StyledCheckBox
+          <ErrorMessage name="message" />
+          <label htmlFor="accept">Accept terms</label>
+          <StyledField
             id="accept"
             name="accept"
             type="checkbox"

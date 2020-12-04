@@ -10,7 +10,7 @@ const StyledSliderWrapper = styled.div`
 const About = () => {
   return (
     <div>
-      <h1>About</h1>
+   
       <StyledSliderWrapper>
         <Slider slides={slidesArray} />
       </StyledSliderWrapper>
