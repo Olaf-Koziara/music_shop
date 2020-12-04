@@ -9,10 +9,10 @@ import AddBoxIcon from "@material-ui/icons/AddBox";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 const StyledLi = styled.li`
   display: grid;
-  grid-template-columns: 20% 30% 10% 5% 5% 10% 5%;
+  grid-template-columns: 25% 20% 10% 8% 8% 15% 8%;
   border-bottom: 1px solid black;
   padding: 10px;
-  grid-column-gap: 3%;
+  grid-column-gap: 2%;
 `;
 const StyledSpan = styled.span`
   text-align: center;
@@ -29,7 +29,9 @@ const CartItem = (product) => {
   return (
     <StyledLi>
       <StyledImage isTiny src={productImage} alt={productName} />
-      <h4>{productName}</h4>
+      <div>
+        <h4>{productName}</h4>
+      </div>
       <Button
         icon
         disabled={productQuantity < 2}
