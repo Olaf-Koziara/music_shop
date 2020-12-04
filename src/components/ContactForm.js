@@ -106,7 +106,7 @@ const ContactForm = () => {
             <ErrorMessage name="accept" />
           </StyledError>
           <Button type="submit">Send</Button>
-        </StyledForm>
+        </Form>
       )}
     </Formik>
   );
